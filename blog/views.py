@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from blog.common.views import CommonMixin
+from common.views import CommonMixin
 
 
 # Create your views here.
