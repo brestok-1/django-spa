@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Main info -->
+    <div class="container-fluid">
+        <div class="row py-5 bg-dark">
+            <div class="write-me fs-1 text-white text-center">
+                Search...
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container-fluid ">
+        <div class="row px-md-4">
+            <div class="col-sm-12 col-md-8">
+
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb py-2 breadcrumb-bg mt-3">
+                        <li class="breadcrumb-item ms-3"><a href="#">Main</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Search</a></li>
+                    </ol>
+                </nav>
+
+                <div class="find-articles fs-5 mb-4">
+                    Found records : 3
+                </div>
+
+                <div class="found-article">
+                    <a href="" class="link-founded">Заголовок поста 1</a>
+                    <div class="description-article mt-2">
+                        Это краткое описание поста. Это краткое описание поста. Это краткое описание поста. Это краткое
+                        описание поста.
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Paginator -->
+    <div class="section mt-5">
+        <div class="container">
+            <div class="row gx-0 justify-content-center">
+                <div class="col-lg-5 col-md-8 col-sm-12">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link"><span class="color">&lt</span></a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link  active" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">&gt</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

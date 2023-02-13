@@ -1,0 +1,174 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main info -->
+    <div class="container-fluid ">
+        <div class="row px-md-4">
+            <div class="col-sm-12 col-md-8">
+
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb py-2 breadcrumb-bg mt-3">
+                        <li class="breadcrumb-item ms-3"><a href="#">Main</a></li>
+                        <li class="breadcrumb-item"><a href="#">Library</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Data</li>
+                    </ol>
+                </nav>
+                <img src="static/img/second_img.jpg" alt="" class="main-project-img mb-2">
+
+                <hr>
+                <!-- Description -->
+                <div class="main-text mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt beatae nam rem voluptatibus
+                    molestiae esse quisquam, cum quos error corrupti ab delectus, explicabo facilis excepturi suscipit
+                    voluptatem necessitatibus odio doloribus!
+                </div>
+                <div class="other-text mb-2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita consectetur ut incidunt
+                    aperiam, fugit laudantium distinctio cumque nobis itaque ipsa iure soluta voluptatem cum quaerat
+                    maxime quasi consequatur nihil eligendi corrupti! Suscipit explicabo delectus labore ut, voluptate
+                    impedit sint nemo, alias, animi sapiente laborum? Unde quibusdam blanditiis perspiciatis? Cupiditate
+                    possimus eligendi eos itaque quaerat. Consequuntur alias voluptate maxime cum aliquid repudiandae
+                    eaque, blanditiis quia praesentium ipsa eveniet adipisci quisquam.
+                </div>
+                <hr>
+                <div class="author-project text-end">
+                    Author : <a class="author-link" href="">Maksim Shymanouski</a>
+                </div>
+                <hr>
+                <div class="publish-time text-end mb-4">
+                    Published : 30.01.2023
+                </div>
+
+                <!-- Making coment -->
+                <form action="" method="post">
+                    <div class="comment border-comment mb-4">
+                        <div class="py-3 ps-3" id="MakeComment">Make comment:</div>
+                        <div class="comment-form mt-3">
+                            <div class="mb-3 px-3">
+                                <label for="exampleFormControlTextarea1" class="form-label d-none">Пример текстового
+                                    поля</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <button type="submit" class="btn btn-success mt-3">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- People comment -->
+                <div class="d-flex flex-column comment-section">
+                    <div class="p-2">
+                        <div class="d-flex flex-row user-info"><a href=""><img class="rounded-circle"
+                                                                               src="{% static 'img/profile-photo.jpg' %}"></a>
+                            <div class="d-flex flex-column justify-content-start me-2"><a
+                                    class="d-block font-weight-bold name ps-3 author-name" href="">Marry
+                                Andrews</a><span class="date text-black-50 ps-3">Shared publicly - Jan 2020</span></div>
+                        </div>
+                        <div class="mt-2">
+                            <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Left Sidebar -->
+            <div class="col-sm-12 col-md-4">
+
+                <!-- Tags -->
+
+                <div class="comment border-comment mb-4 mt-3">
+                    <div class="py-3 ps-3" id="MakeComment">Tags:</div>
+                    <div class="mb-3 px-3">
+                        <div class="row mt-3">
+
+                            <div class="col-6">
+                                <a href="#" class="">Django</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#">Django</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#">Django</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#">Django</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Recent articles -->
+                <div class="comment border-comment mb-4 mt-3">
+                    <div class="py-3 ps-3" id="MakeComment">Recent articles:</div>
+
+                    <div class="my-3 px-3 recent-article mb-2">
+                        <div class="article-title fs-4 mt-3">
+                            First article
+                        </div>
+                        <div class="article-content mt-2">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
+                        </div>
+                        <div class="article-link mt-2">
+                            <a href="" class="btn btn-outline-success mb-3">View</a>
+                        </div>
+                    </div>
+                    <div class="my-3 px-3 recent-article mb-2">
+                        <div class="article-title fs-4 mt-3">
+                            First article
+                        </div>
+                        <div class="article-content mt-2">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
+                        </div>
+                        <div class="article-link mt-2">
+                            <a href="" class="btn btn-outline-success mb-3">View</a>
+                        </div>
+                    </div>
+                    <div class="my-3 px-3 recent-article mb-2">
+                        <div class="article-title fs-4 mt-3">
+                            First article
+                        </div>
+                        <div class="article-content mt-2">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
+                        </div>
+                        <div class="article-link mt-2">
+                            <a href="" class="btn btn-outline-success mb-3">View</a>
+                        </div>
+                    </div>
+                    <div class="my-3 px-3 recent-article mb-2">
+                        <div class="article-title fs-4 mt-3">
+                            First article
+                        </div>
+                        <div class="article-content mt-2">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
+                        </div>
+                        <div class="article-link mt-2">
+                            <a href="" class="btn btn-outline-success mb-3">View</a>
+                        </div>
+                    </div>
+                    <div class="my-3 px-3 mb-0">
+                        <div class="article-title fs-4 mt-3">
+                            First article
+                        </div>
+                        <div class="article-content mt-2">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
+                        </div>
+                        <div class="article-link mt-2">
+                            <a href="" class="btn btn-outline-success mb-3">View</a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
