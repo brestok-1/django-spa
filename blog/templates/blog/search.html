@@ -19,42 +19,55 @@
                 <!-- Breadcrumb -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb py-2 breadcrumb-bg mt-3">
-                        <li class="breadcrumb-item ms-3"><a href="#">Main</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Search</a></li>
+                        <li class="breadcrumb-item ms-3"><a href="{% url 'blog:index' %}">Main</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Search</li>
                     </ol>
                 </nav>
 
-                <div class="find-articles fs-5 mb-4">
-                    Found records : 3
+                <div class="find-articles fs-4 mb-4 mt-3">
+                    Matches found : {{ count }}
                 </div>
 
-                <div class="found-article">
-                    <a href="" class="link-founded">Заголовок поста 1</a>
-                    <div class="description-article mt-2">
-                        Это краткое описание поста. Это краткое описание поста. Это краткое описание поста. Это краткое
-                        описание поста.
+                {% for object in object_list %}
+                    <div class="found-article">
+                        <a href="{% url 'blog:one_project' object.slug %}" class="link-founded">{{ object.title }}</a>
+                        <div class="description-article mt-2">
+                            {{ object.description|truncatewords:30 }}
+                        </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
+                {% endfor %}
+
             </div>
         </div>
     </div>
 
-
     <!-- Paginator -->
-    <div class="section mt-5">
-        <div class="container">
-            <div class="row gx-0 justify-content-center">
-                <div class="col-lg-5 col-md-8 col-sm-12">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link"><span class="color">&lt</span></a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link  active" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&gt</a></li>
-                    </ul>
+    {% if page_obj.has_other_pages %}
+        <div class="section mt-5">
+            <div class="container">
+                <div class="row gx-0 justify-content-center">
+                    <div class="col-lg-5 col-md-8 col-sm-12">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a
+                                    class="page-link {% if not page_obj.has_previous %}disabled{% endif %}"
+                                    href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><span
+                                    class="color">&lt</span></a></li>
+                            {% for p in paginator.page_range %}
+                                <li class="page-item"><a
+                                        class="page-link {% if page_obj.number == p %}active{% endif %}"
+                                        href="?page=
+                                                {{ p }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ p }}</a>
+                                </li>
+                            {% endfor %}
+                            <li class="page-item"><a class="page-link {% if not page_obj.has_next %}disabled{% endif %}"
+                                                     href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&gt</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    {% endif %}
 
 {% endblock %}

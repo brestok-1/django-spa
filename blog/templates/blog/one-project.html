@@ -10,45 +10,38 @@
                 <!-- Breadcrumb -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb py-2 breadcrumb-bg mt-3">
-                        <li class="breadcrumb-item ms-3"><a href="#">Main</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        <li class="breadcrumb-item ms-3"><a href="{% url 'blog:index' %}">Main</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ object.h1 }}</li>
                     </ol>
                 </nav>
-                <img src="static/img/second_img.jpg" alt="" class="main-project-img mb-2">
+                <img src="{{ object.image.url }}" alt="" class="main-project-img mb-2">
 
                 <hr>
                 <!-- Description -->
                 <div class="main-text mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt beatae nam rem voluptatibus
-                    molestiae esse quisquam, cum quos error corrupti ab delectus, explicabo facilis excepturi suscipit
-                    voluptatem necessitatibus odio doloribus!
+                    {{ object.description|linebreaks }}
                 </div>
                 <div class="other-text mb-2">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita consectetur ut incidunt
-                    aperiam, fugit laudantium distinctio cumque nobis itaque ipsa iure soluta voluptatem cum quaerat
-                    maxime quasi consequatur nihil eligendi corrupti! Suscipit explicabo delectus labore ut, voluptate
-                    impedit sint nemo, alias, animi sapiente laborum? Unde quibusdam blanditiis perspiciatis? Cupiditate
-                    possimus eligendi eos itaque quaerat. Consequuntur alias voluptate maxime cum aliquid repudiandae
-                    eaque, blanditiis quia praesentium ipsa eveniet adipisci quisquam.
+                    {{ object.content|linebreaks }}
                 </div>
                 <hr>
                 <div class="author-project text-end">
-                    Author : <a class="author-link" href="">Maksim Shymanouski</a>
+                    Author : <a class="author-link" href="">{{ object.author|title }}</a>
                 </div>
                 <hr>
                 <div class="publish-time text-end mb-4">
-                    Published : 30.01.2023
+                    Published : {{ object.time_created|date:"M d, Y" }}
                 </div>
 
                 <!-- Making coment -->
                 <form action="" method="post">
+                    {% csrf_token %}
                     <div class="comment border-comment mb-4">
                         <div class="py-3 ps-3" id="MakeComment">Make comment:</div>
                         <div class="comment-form mt-3">
                             <div class="mb-3 px-3">
-                                <label for="exampleFormControlTextarea1" class="form-label d-none">Пример текстового
-                                    поля</label>
+                                <label for="exampleFormControlTextarea1" class="form-label d-none">Example of text
+                                    area</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 <button type="submit" class="btn btn-success mt-3">Send</button>
                             </div>
@@ -85,20 +78,11 @@
                     <div class="py-3 ps-3" id="MakeComment">Tags:</div>
                     <div class="mb-3 px-3">
                         <div class="row mt-3">
-
-                            <div class="col-6">
-                                <a href="#" class="">Django</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#">Django</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#">Django</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#">Django</a>
-                            </div>
-
+                            {% for tag in object.get_tags %}
+                                <div class="col-6">
+                                    <a href="#" class="">{{ tag.tag }}</a>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -108,61 +92,20 @@
                 <div class="comment border-comment mb-4 mt-3">
                     <div class="py-3 ps-3" id="MakeComment">Recent articles:</div>
 
-                    <div class="my-3 px-3 recent-article mb-2">
-                        <div class="article-title fs-4 mt-3">
-                            First article
+                    {% for recent_article in recent_articles %}
+                        <div class="my-3 px-3 {% if forloop.last %}mb-0{% else %}recent-article mb-2{% endif %}">
+                            <div class="article-title fs-4 mt-3">
+                                {{ recent_article.title }}
+                            </div>
+                            <div class="article-content mt-2">
+                                {{ recent_article.description|truncatewords:24 }}
+                            </div>
+                            <div class="article-link mt-2">
+                                <a href="{% url 'blog:one_project' recent_article.slug %}"
+                                   class="btn btn-outline-success mb-3">View</a>
+                            </div>
                         </div>
-                        <div class="article-content mt-2">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
-                        </div>
-                        <div class="article-link mt-2">
-                            <a href="" class="btn btn-outline-success mb-3">View</a>
-                        </div>
-                    </div>
-                    <div class="my-3 px-3 recent-article mb-2">
-                        <div class="article-title fs-4 mt-3">
-                            First article
-                        </div>
-                        <div class="article-content mt-2">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
-                        </div>
-                        <div class="article-link mt-2">
-                            <a href="" class="btn btn-outline-success mb-3">View</a>
-                        </div>
-                    </div>
-                    <div class="my-3 px-3 recent-article mb-2">
-                        <div class="article-title fs-4 mt-3">
-                            First article
-                        </div>
-                        <div class="article-content mt-2">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
-                        </div>
-                        <div class="article-link mt-2">
-                            <a href="" class="btn btn-outline-success mb-3">View</a>
-                        </div>
-                    </div>
-                    <div class="my-3 px-3 recent-article mb-2">
-                        <div class="article-title fs-4 mt-3">
-                            First article
-                        </div>
-                        <div class="article-content mt-2">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
-                        </div>
-                        <div class="article-link mt-2">
-                            <a href="" class="btn btn-outline-success mb-3">View</a>
-                        </div>
-                    </div>
-                    <div class="my-3 px-3 mb-0">
-                        <div class="article-title fs-4 mt-3">
-                            First article
-                        </div>
-                        <div class="article-content mt-2">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio, maiores.
-                        </div>
-                        <div class="article-link mt-2">
-                            <a href="" class="btn btn-outline-success mb-3">View</a>
-                        </div>
-                    </div>
+                    {% endfor %}
 
 
                 </div>

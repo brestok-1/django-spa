@@ -16,8 +16,12 @@ class Article(models.Model):
     time_created = models.DateField()
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
+
     def __str__(self):
         return f'Article : {self.title}'
+
+    def get_tags(self):
+        return Tags.objects.filter(article__id=self.id)
 
 
 class Tags(models.Model):
@@ -26,3 +30,7 @@ class Tags(models.Model):
 
     def __str__(self):
         return 'Tag :' + self.tag
+
+    class Meta:
+        verbose_name_plural = 'Tags'
+        verbose_name = 'Tag'
