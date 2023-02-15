@@ -13,6 +13,7 @@ class IndexView(CommonMixin, ListView):
     template_name = 'blog/index.html'
     title = 'Добро пожаловать!'
     model = Article
+    paginate_by = 6
 
 
 class ArticleView(DetailView):

@@ -62,7 +62,8 @@
                             <p class="card-text">{{ object.description|truncatewords:24 }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{% url 'blog:one_project' object.slug %}" class="btn btn-sm btn-outline-success">View</a>
+                                    <a href="{% url 'blog:one_project' object.slug %}"
+                                       class="btn btn-sm btn-outline-success">View</a>
                                 </div>
                                 <small class="text-muted">{{ object.time_created|date:"M d, Y" }}</small>
                             </div>
@@ -73,17 +74,27 @@
         </div>
     </div>
 
+    {% if page_obj.has_other_pages %}
+
+    {% endif %}
     <!-- Paginator -->
     <div class="section">
         <div class="container">
             <div class="row gx-0 justify-content-center">
                 <div class="col-lg-5 col-md-8 col-sm-12">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link"><span class="color">&lt</span></a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link  active" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&gt</a></li>
+                        <li class="page-item"><a
+                                class="page-link {% if not page_obj.has_previous %}disabled{% endif %}"
+                                href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}"><span
+                                class="color">&lt</span></a></li>
+                        {% for p in paginator.page_range %}
+                            <li class="page-item"><a
+                                    class="page-link {% if page_obj.number == p %}active{% endif %}"
+                                    href="?page={{ p }}">{{ p }}</a></li>
+                        {% endfor %}
+                        <li class="page-item"><a class="page-link {% if not page_obj.has_next %}disabled{% endif %}"
+                                                 href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}">&gt</a>
+                        </li>
                     </ul>
                 </div>
             </div>

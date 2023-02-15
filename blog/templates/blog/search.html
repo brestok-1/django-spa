@@ -56,9 +56,7 @@
                             {% for p in paginator.page_range %}
                                 <li class="page-item"><a
                                         class="page-link {% if page_obj.number == p %}active{% endif %}"
-                                        href="?page=
-                                                {{ p }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ p }}</a>
-                                </li>
+                                        href="?page={{ p }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ p }}</a></li>
                             {% endfor %}
                             <li class="page-item"><a class="page-link {% if not page_obj.has_next %}disabled{% endif %}"
                                                      href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&gt</a>
