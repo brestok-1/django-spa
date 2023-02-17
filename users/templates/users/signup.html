@@ -1,4 +1,6 @@
 {% extends 'blog/base.html' %}
+{% load socialaccount %}
+
 {% block content %}
     <!-- Main info -->
     <div class="container-fluid">
@@ -26,7 +28,7 @@
                                    placeholder="Name@example.com">
                         </div>
                         <div class="col-md-6">
-                            <label for="inputUsername" class="form-label text-right">Enter your email</label>
+                            <label for="inputUsername" class="form-label text-right">Enter your username</label>
                             <input class="form-control py-2" id="inputUsername" type="text"
                                    aria-describedby="usernameHelp" placeholder="Username"/>
                         </div>
@@ -43,6 +45,24 @@
                         <div class="d-flex justify-content-center my-4">
                             <button class="btn btn-lg btn-success" type="submit">Sign Up</button>
                         </div>
+
+{#                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">#}
+{##}
+{#                            <a href="{% provider_login_url 'google' %}?next=/">#}
+{#                                <i class="fab fa-google fa-2x" style="color: #d9503e;"></i>#}
+{#                            </a>#}
+{#                            <a href="{% provider_login_url 'twitter' %}">#}
+{#                                <i class="fab fa-twitter fa-2x" style="color: #4a658b;"></i>#}
+{#                            </a>#}
+{#                            <a href="{% provider_login_url 'github' %}">#}
+{#                                <i class="fab fa-github fa-2x" style="color: #303030;"></i>#}
+{#                            </a>#}
+{#                            <a href="{% provider_login_url 'facebook' %}">#}
+{#                                <i class="fab fa-facebook fa-2x" style="color: #405794;"></i>#}
+{#                            </a>#}
+{#                            l#}
+{#                        </div>#}
+
 
                     </div>
                 </form>
