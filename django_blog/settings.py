@@ -11,12 +11,21 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env(
+    EMAIL_HOST=(str),
+    EMAIL_PORT=(int),
+    EMAIL_HOST_USER=(str),
+    EMAIL_HOST_PASSWORD=(str),
+    EMAIL_USE_SSL=(bool),
+)
 
 import django.core.mail.backends.dummy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+environ.Env.read_env(BASE_DIR / '.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -89,11 +98,11 @@ INTERNAL_IPS = [
 ]
 
 # Redis
-#
+
 # REDIS_HOST = '127.0.0.1'
 # REDIS_PORT = '6379'
-
-# Cache
+#
+# # Cache
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django_redis.cache.RedisCache',
@@ -206,17 +215,22 @@ ACCOUNT_USERNAME_MIN_LENGTH = 3
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_USERNAME_VALIDATORS = None
 
-
-
-
+ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_URL
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = False
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'Brestok-Store@yandex.ru'
+EMAIL_HOST_USER = 'TestEmailSendingDjango@yandex.ru'
 EMAIL_HOST_PASSWORD = 'Fullstack135799'
 EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # if DEBUG:
 #     EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'

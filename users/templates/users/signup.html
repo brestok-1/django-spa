@@ -19,7 +19,7 @@
                 <div class="contact-me fs-3 my-5 text-center">
                     To get all the available features, please register
                 </div>
-                <form class="" method="post" action="">
+                <form class="" method="post" id="signup_form" action="{% url 'account_signup' %}">
                     <div class="row justify-content-between">
 
                         <div class="mb-3 col-md-6">
@@ -70,3 +70,39 @@
         </div>
     </div>
 {% endblock %}
+
+
+
+    <div class="container-fluid">
+        <div class="row px-md-4 justify-content-center">
+            <div class="col-12 col-md-9">
+                <div class="contact-me fs-3 my-5 text-center">
+                    {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+                </div>
+                <form class="" method="post" id="signup_form" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    <div class="row justify-content-between">
+                        <div class="mb-3 col-md-6">
+                            <label for="{{ form.email.id_for_label }}" class="form-label text-right">Enter your email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.username.id_for_label }}" class="form-label text-right">Enter your username</label>
+                            {{ form.username }}
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="{{ form.password1.id_for_label }}" class="form-label">Enter your password</label>
+                            {{ form.password1 }}
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="{{ form.password2.id_for_label }}" class="form-label">Repeat the password</label>
+                            {{ form.password2 }}
+                        </div>
+                        <div class="d-flex justify-content-center my-4">
+                            <button class="btn btn-lg btn-success" type="submit">Sign Up</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

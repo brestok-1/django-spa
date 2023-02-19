@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.timezone import now
 
 from users.models import User
 
@@ -15,7 +16,6 @@ class Article(models.Model):
     image = models.ImageField(upload_to='article-images')
     time_created = models.DateField()
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
-
 
     def __str__(self):
         return f'Article : {self.title}'
@@ -34,3 +34,16 @@ class Tags(models.Model):
     class Meta:
         verbose_name_plural = 'Tags'
         verbose_name = 'Tag'
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_name')
+    text = models.TextField()
+    created_date = models.DateTimeField(default=now)
+
+    class Meta:
+        ordering = ['-created_date']
+
+    def __str__(self):
+        return self.text
