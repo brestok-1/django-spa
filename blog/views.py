@@ -1,6 +1,5 @@
 import re
 
-from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -10,7 +9,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from blog.forms import CommentForm, ContactForm
 from blog.models import Article, Comment
 from common.views import CommonMixin
-
+from blog.tasks import send_feedback
 
 # Create your views here.
 class IndexView(CommonMixin, ListView):
@@ -94,8 +93,5 @@ class ContactView(CommonMixin, FormView):
     def post(self, request, *args, **kwargs):
         form = ContactForm(request.POST)
         if form.is_valid():
-            subject = f'Feedback from {form.changed_data["name"]}'
-            message = form.changed_data['message']
-            from_email = form.changed_data['email']
-
+            send_feedback.delay(form.cleaned_data)
         return super(ContactView, self).post(self, request, *args, **kwargs)

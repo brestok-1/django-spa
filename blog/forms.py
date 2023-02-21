@@ -33,6 +33,6 @@ class ContactForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea(attrs={
         'class': 'form-control',
         'id': 'message',
-        'placeholder': 'Theme',
+        'placeholder': 'Message',
         'rows': 4
     }))
