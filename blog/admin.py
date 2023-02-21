@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Tags, Article
+from blog.models import Tags, Article, Comment
 
 
 # Register your models here.
@@ -15,4 +15,7 @@ class ArticlesAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'content')
     prepopulated_fields = {'slug': ('title',)}
 
-#
+
+@admin.register(Comment)
+class ArticlesAdmin(admin.ModelAdmin):
+    pass

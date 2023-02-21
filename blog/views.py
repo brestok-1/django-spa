@@ -1,10 +1,14 @@
 import re
 
+from django.core.mail import send_mail
 from django.db.models import Q
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, ListView, DetailView
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView
 
-from blog.models import Article
+from blog.forms import CommentForm, ContactForm
+from blog.models import Article, Comment
 from common.views import CommonMixin
 
 
@@ -30,6 +34,8 @@ class ArticleView(DetailView):
         else:
             final_article = recent_article[:5]
         context['recent_articles'] = final_article
+        context['form'] = CommentForm(self.request.POST)
+        context['comments'] = Comment.objects.filter(post__slug=self.object.slug)
         return context
 
 
@@ -60,3 +66,36 @@ class SearchView(CommonMixin, ListView):
         context = super(SearchView, self).get_context_data(**kwargs)
         context['count'] = len(self.object_list)
         return context
+
+
+class CommentView(CreateView):
+    template_name = 'blog/one-project.html'
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return redirect(self.request.META['HTTP_REFERER'])
+
+    def post(self, *args, **kwargs):
+        form = CommentForm(self.request.POST)
+        if form.is_valid():
+            slug = re.findall(r'((?:[a-z]+-?)+)\/(?<=$)', self.request.META['HTTP_REFERER'])[0]
+            comment = Comment.objects.create(post=Article.objects.get(slug=slug), username=self.request.user,
+                                             text=self.request.POST['text'])
+            return HttpResponseRedirect(self.request.META['HTTP_REFERER'])
+        return super(CommentView, self).post(self, form, *args, **kwargs)
+
+
+class ContactView(CommonMixin, FormView):
+    title = 'Contacts'
+    template_name = 'blog/contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('blog:index')
+
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = f'Feedback from {form.changed_data["name"]}'
+            message = form.changed_data['message']
+            from_email = form.changed_data['email']
+
+        return super(ContactView, self).post(self, request, *args, **kwargs)
