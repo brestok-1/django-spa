@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.timezone import now
-
+from ckeditor_uploader.fields import RichTextUploadingField
 from users.models import User
 
 
@@ -11,8 +11,8 @@ class Article(models.Model):
     h1 = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL', default='')
-    description = models.TextField(default='')
-    content = models.TextField(default='')
+    description = RichTextUploadingField()
+    content = RichTextUploadingField()
     image = models.ImageField(upload_to='article-images')
     time_created = models.DateField()
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
