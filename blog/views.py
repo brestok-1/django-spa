@@ -11,6 +11,7 @@ from blog.models import Article, Comment
 from common.views import CommonMixin
 from blog.tasks import send_feedback
 
+
 # Create your views here.
 class IndexView(CommonMixin, ListView):
     template_name = 'blog/index.html'
