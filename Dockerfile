@@ -12,3 +12,9 @@ ADD . /django_blog
 RUN pip install -r requirements.txt
 
 COPY . .
+
+CMD ["sysctl", "vm.overcommit_memory=1"]
+
+ENV C_FORCE_ROOT=true
+
+CMD celery -A store worker -l info
